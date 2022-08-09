@@ -50,7 +50,9 @@ const Cadastro = () => {
     <DivCadastro>
       <div className="container--cadastro">
         <Logo />
-        <button className="btn--voltar">Voltar</button>
+        <button onClick={() => navigate("/")} className="btn--voltar">
+          Voltar
+        </button>
       </div>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h3>Crie sua conta</h3>
@@ -70,6 +72,7 @@ const Cadastro = () => {
         <Label>
           Senha
           <Input
+            type="password"
             placeholder="Digite aqui sua senha"
             {...register("password")}
           />
@@ -78,6 +81,7 @@ const Cadastro = () => {
         <Label>
           Confirmar senha
           <Input
+            type="password"
             placeholder="Digite novamente sua senha"
             {...register("confirmPassword")}
           />

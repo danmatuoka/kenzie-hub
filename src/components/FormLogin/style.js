@@ -33,6 +33,10 @@ export const DivForm = styled.div`
     background: var(--pink);
   }
 
+  .btn--entrar:hover {
+    background: var(--brightpink);
+  }
+
   .btn--cadastrar {
     width: 260px;
     height: 35px;
@@ -40,6 +44,10 @@ export const DivForm = styled.div`
     border: none;
     color: white;
     background: var(--softgrey);
+  }
+
+  .btn--cadastrar:hover {
+    background: var(--mediumgrey);
   }
 
   .p--login {

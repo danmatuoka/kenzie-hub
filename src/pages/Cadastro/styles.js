@@ -25,6 +25,10 @@ export const DivCadastro = styled.div`
       padding: 5px 20px 5px 20px;
       border-radius: 5px;
     }
+
+    .btn--voltar:hover {
+      background-color: var(--mediumgrey);
+    }
   }
 
   select {
@@ -48,5 +52,9 @@ export const DivCadastro = styled.div`
     border: none;
     color: white;
     background: var(--pink);
+  }
+
+  .btn--cadastro:hover {
+    background: var(--brightpink);
   }
 `;
