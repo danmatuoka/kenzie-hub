@@ -6,13 +6,15 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import Logo from "../Logo";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 const FormLogin = ({ login, setLogin }) => {
   const FormSchema = yup.object().shape({
     email: yup.string().email("Email inválido!").required("Campo obrigatório!"),
     password: yup
       .string()
-      .min(8, "A senha precisa ter no mínimo 8 caracteres")
+      .min(6, "A senha precisa ter no mínimo 8 caracteres")
       .required("Campo obrigatório!"),
   });
 
@@ -26,7 +28,9 @@ const FormLogin = ({ login, setLogin }) => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const { signIn } = useContext(UserContext);
+
+  /*   const onSubmit = (data) => {
     api
       .post("/sessions", data)
       .then((response) => {
@@ -43,7 +47,7 @@ const FormLogin = ({ login, setLogin }) => {
         console.log(err);
         toast.error("Email ou senha inválidos");
       });
-  };
+  }; */
 
   return (
     <DivLogin>
@@ -53,7 +57,7 @@ const FormLogin = ({ login, setLogin }) => {
       <DivForm>
         <h3 className="titulo--login">Login</h3>
 
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(signIn)}>
           <Label>
             Email
             <Input placeholder="email@kenzie.com.br" {...register("email")} />
