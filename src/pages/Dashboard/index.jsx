@@ -1,14 +1,19 @@
+import { useContext } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import Logo from "../../components/Logo";
+import { UserContext } from "../../contexts/UserContext";
 import { ContainerDashboard } from "./style";
 
 const Dashboard = () => {
-  const [user] = useState(JSON.parse(localStorage.getItem("@hub:user")));
+  //const [user] = useState(localStorage.getItem("@hub:user"));
+  const { user, loading } = useContext(UserContext);
 
   const navigate = useNavigate();
 
-  return (
+  if (loading) return <div>Carregando...</div>;
+
+  return user ? (
     <ContainerDashboard className="container--dashboard">
       <div className="header--dashboard">
         <Logo />
@@ -34,6 +39,8 @@ const Dashboard = () => {
         </p>
       </div>
     </ContainerDashboard>
+  ) : (
+    <Navigate to="/" replace />
   );
 };
 

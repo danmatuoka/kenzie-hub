@@ -1,10 +1,8 @@
 import { DivForm, DivLogin, Form, Input, Label } from "./style";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import api from "../../services/api.js";
+import { Link, Navigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import toast from "react-hot-toast";
 import Logo from "../Logo";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
@@ -26,28 +24,7 @@ const FormLogin = ({ login, setLogin }) => {
     resolver: yupResolver(FormSchema),
   });
 
-  const navigate = useNavigate();
-
   const { signIn } = useContext(UserContext);
-
-  /*   const onSubmit = (data) => {
-    api
-      .post("/sessions", data)
-      .then((response) => {
-        const { token, user } = response.data;
-
-        localStorage.setItem("@hub:token", JSON.stringify(token));
-        localStorage.setItem("@hub:user", JSON.stringify(user));
-
-        //setLogin(true);
-
-        navigate("/dashboard");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Email ou senha inválidos");
-      });
-  }; */
 
   return (
     <DivLogin>
