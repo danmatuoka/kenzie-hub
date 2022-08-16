@@ -7,8 +7,12 @@ import { DivCadastro } from "./styles";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Logo from "../../components/Logo";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 const Cadastro = () => {
+  const { registerUser } = useContext(UserContext);
+
   const formSchema = yup.object().shape({
     name: yup.string().required("Campo obrigatório"),
     email: yup.string().email("Email inválido!").required("Campo obrigatório!"),
@@ -54,7 +58,7 @@ const Cadastro = () => {
           Voltar
         </button>
       </div>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(registerUser)}>
         <h3>Crie sua conta</h3>
 
         <p>Rapido grátis, vamos nessa</p>

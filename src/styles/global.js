@@ -28,6 +28,8 @@ export default createGlobalStyle`
     body {
         background-color: var(--black);
         color: var(--vanilla);
+        max-width: 1200px;
+        margin: 0 auto;
     }
 
     body, input, button, label {

@@ -1,13 +1,18 @@
 import { useContext } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import ContainerTech from "../../components/ContainerTech";
 import Logo from "../../components/Logo";
+import Modal from "../../components/Modal";
 import { UserContext } from "../../contexts/UserContext";
+import api from "../../services/api";
 import { ContainerDashboard } from "./style";
 
 const Dashboard = () => {
   //const [user] = useState(localStorage.getItem("@hub:user"));
-  const { user, loading } = useContext(UserContext);
+  const { user, logout, loading, isOpenModal, setTech } =
+    useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -19,7 +24,7 @@ const Dashboard = () => {
         <Logo />
         <button
           onClick={() => {
-            navigate("/");
+            logout();
           }}
           className="btn--sair"
         >
@@ -32,12 +37,8 @@ const Dashboard = () => {
         <p className="course--dashboard">{user.course_module}</p>
       </div>
 
-      <div className="body--desenvolvimento">
-        <h3>Que pena! Estamos em desenvolvimento</h3>
-        <p>
-          Nossa aplicação está em desenvolvimento, em breve teremos novidades
-        </p>
-      </div>
+      <ContainerTech />
+      {isOpenModal && <Modal />}
     </ContainerDashboard>
   ) : (
     <Navigate to="/" replace />

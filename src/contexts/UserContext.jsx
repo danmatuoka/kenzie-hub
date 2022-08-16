@@ -8,7 +8,9 @@ export const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [tech, setTech] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
 
   async function loadUser() {
@@ -20,8 +22,8 @@ const UserProvider = ({ children }) => {
 
         const { data } = await api.get("/profile");
 
-        console.log(data);
         setUser(data);
+        setTech(data.techs);
       } catch (error) {
         console.error(error);
       }
@@ -32,6 +34,25 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     loadUser();
   }, []);
+
+  const registerUser = ({
+    name,
+    email,
+    password,
+    course_module,
+    bio,
+    contact,
+  }) => {
+    const user = { name, email, password, course_module, bio, contact };
+
+    api
+      .post("/users", user)
+      .then(() => {
+        toast.success("Conta criada com sucesso");
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
+  };
 
   const signIn = async (data) => {
     await api
@@ -44,6 +65,7 @@ const UserProvider = ({ children }) => {
         localStorage.setItem("@hub:user", userResponse);
 
         setUser(userResponse);
+        setTech(userResponse.techs);
         navigate("/dashboard", { replace: true });
       })
       .catch((err) => {
@@ -52,8 +74,60 @@ const UserProvider = ({ children }) => {
       });
   };
 
+  const logout = () => {
+    setUser(null);
+    localStorage.clear();
+  };
+
+  const loadTechs = async () => {
+    await api.get("/profile").then((res) => setTech(res.data.techs));
+  };
+
+  const newTech = async ({ title, status }) => {
+    const tech = { title, status };
+    try {
+      await api.post("/users/techs/", tech);
+      /* .then((res) => {
+          setTimeout(() => {
+            setUser([...user.techs, ]);
+          }, 2000);
+        }); */
+      loadUser();
+      toast.success("Tech cadastrada com sucesso!");
+      setIsOpenModal(false);
+    } catch (error) {
+      console.error(error);
+      toast.error("Algum erro ocorreu!");
+    }
+  };
+
+  const deleteTech = async (techId) => {
+    try {
+      await api.delete(`/users/techs/${techId}`);
+      loadUser();
+      /* setTech([...tech.filter((elem) => elem.id !== techId)]); */
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ user, signIn, loading }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        registerUser,
+        signIn,
+        logout,
+        loading,
+        newTech,
+        isOpenModal,
+        setIsOpenModal,
+        deleteTech,
+        tech,
+        setTech,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

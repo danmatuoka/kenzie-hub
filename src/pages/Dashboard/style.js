@@ -9,7 +9,7 @@ export const ContainerDashboard = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid var(--mediumgrey);
   }
 
   .btn--sair {
@@ -37,6 +37,7 @@ export const ContainerDashboard = styled.div`
     display: flex;
     flex-direction: column;
     padding: 20px;
+    border-bottom: 1px solid var(--mediumgrey);
   }
 
   @media screen and (min-width: 700px) {
