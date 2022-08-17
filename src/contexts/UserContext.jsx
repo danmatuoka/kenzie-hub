@@ -18,7 +18,7 @@ const UserProvider = ({ children }) => {
 
     if (token) {
       try {
-        api.defaults.headers.authorization = `Bearer ${token}`;
+        api.defaults.headers.Authorization = `Bearer ${token}`;
 
         const { data } = await api.get("/profile");
 
@@ -87,11 +87,7 @@ const UserProvider = ({ children }) => {
     const tech = { title, status };
     try {
       await api.post("/users/techs/", tech);
-      /* .then((res) => {
-          setTimeout(() => {
-            setUser([...user.techs, ]);
-          }, 2000);
-        }); */
+
       loadUser();
       toast.success("Tech cadastrada com sucesso!");
       setIsOpenModal(false);

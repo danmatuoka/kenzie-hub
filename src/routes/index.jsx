@@ -5,17 +5,9 @@ import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
 
 const RoutesMain = () => {
-  const [login, setLogin] = useState(false);
-
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("hub:token"));
-
-    token && setLogin(true);
-  });
-
   return (
     <Routes>
-      <Route path="/" element={<Login login={login} setLogin={setLogin} />} />
+      <Route path="/" element={<Login />} />
 
       <Route path="/cadastro" element={<Cadastro />} />
 

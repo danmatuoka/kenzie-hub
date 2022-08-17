@@ -1,20 +1,15 @@
 import { useContext } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import ContainerTech from "../../components/ContainerTech";
 import Logo from "../../components/Logo";
 import Modal from "../../components/Modal";
 import { UserContext } from "../../contexts/UserContext";
-import api from "../../services/api";
 import { ContainerDashboard } from "./style";
 
 const Dashboard = () => {
   //const [user] = useState(localStorage.getItem("@hub:user"));
   const { user, logout, loading, isOpenModal, setTech } =
     useContext(UserContext);
-
-  const navigate = useNavigate();
 
   if (loading) return <div>Carregando...</div>;
 
