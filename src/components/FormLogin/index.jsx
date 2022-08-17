@@ -12,7 +12,7 @@ const FormLogin = ({ login, setLogin }) => {
     email: yup.string().email("Email inválido!").required("Campo obrigatório!"),
     password: yup
       .string()
-      .min(6, "A senha precisa ter no mínimo 8 caracteres")
+      .min(8, "A senha precisa ter no mínimo 8 caracteres")
       .required("Campo obrigatório!"),
   });
 
