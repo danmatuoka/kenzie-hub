@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Cadastro from "../pages/Cadastro";
 import Dashboard from "../pages/Dashboard";
