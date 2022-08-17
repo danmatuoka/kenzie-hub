@@ -5,9 +5,11 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import { TechContext } from "../../contexts/TechContext";
 
 const Modal = () => {
-  const { newTech, isOpenModal, setIsOpenModal } = useContext(UserContext);
+  const { isOpenModal, setIsOpenModal } = useContext(UserContext);
+  const { newTech } = useContext(TechContext);
 
   const FormSchema = yup.object().shape({
     title: yup.string().required("Campo obrigatório"),

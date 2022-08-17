@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { UserContext } from "../../contexts/UserContext";
 import { DivMainTech } from "./styles";
 import { CgTrash } from "react-icons/cg";
+import { TechContext } from "../../contexts/TechContext";
 
 const TechCard = ({ title, status, id }) => {
-  const { deleteTech, tech } = useContext(UserContext);
+  const { deleteTech } = useContext(TechContext);
 
   return (
     <DivMainTech>

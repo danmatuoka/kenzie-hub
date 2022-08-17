@@ -79,34 +79,6 @@ const UserProvider = ({ children }) => {
     localStorage.clear();
   };
 
-  const loadTechs = async () => {
-    await api.get("/profile").then((res) => setTech(res.data.techs));
-  };
-
-  const newTech = async ({ title, status }) => {
-    const tech = { title, status };
-    try {
-      await api.post("/users/techs/", tech);
-
-      loadUser();
-      toast.success("Tech cadastrada com sucesso!");
-      setIsOpenModal(false);
-    } catch (error) {
-      console.error(error);
-      toast.error("Algum erro ocorreu!");
-    }
-  };
-
-  const deleteTech = async (techId) => {
-    try {
-      await api.delete(`/users/techs/${techId}`);
-      loadUser();
-      /* setTech([...tech.filter((elem) => elem.id !== techId)]); */
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <UserContext.Provider
       value={{
@@ -116,12 +88,11 @@ const UserProvider = ({ children }) => {
         signIn,
         logout,
         loading,
-        newTech,
         isOpenModal,
         setIsOpenModal,
-        deleteTech,
         tech,
         setTech,
+        loadUser,
       }}
     >
       {children}
