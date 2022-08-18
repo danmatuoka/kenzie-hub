@@ -59,7 +59,7 @@ const UserProvider = ({ children }) => {
       .post("/sessions", data)
       .then((response) => {
         const { token, user: userResponse } = response.data;
-        api.defaults.headers.authorization = `Bearer ${token}`;
+        api.defaults.headers.Authorization = `Bearer ${token}`;
 
         localStorage.setItem("@hub:token", token);
         localStorage.setItem("@hub:user", userResponse);
