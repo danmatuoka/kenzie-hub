@@ -23,7 +23,7 @@ interface IUser {
   contact: string;
   created_at: string;
   updated_at: string;
-  techs?: string[];
+  techs?: ITech[];
   works?: string[];
 }
 
@@ -49,13 +49,31 @@ export interface IUserLogin {
   password: string;
 }
 
+interface IUserResponse {
+  id: string;
+  name: string;
+  email: string;
+  course_module: string;
+  bio: string;
+  contact: string;
+  created_at: string;
+  updated_at: string;
+  techs: ITech[];
+  works?: string[];
+  avatar_url?: null | string;
+}
+
+interface ISessionsResponse {
+  user: IUserResponse;
+  token: string;
+}
+
 interface IUserContext {
   user: IUser | null;
   setUser: Dispatch<SetStateAction<IUser | null>>;
   tech: ITech[];
   setTech: Dispatch<SetStateAction<ITech[]>>;
   loading: boolean;
-  //setLoding: Dispatch<SetStateAction<boolean>>;
   isOpenModal: boolean;
   setIsOpenModal: Dispatch<SetStateAction<boolean>>;
   loadUser: () => Promise<void>;
@@ -80,7 +98,7 @@ const UserProvider = ({ children }: IUserProviderProps) => {
       try {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-        const { data } = await api.get('/profile');
+        const { data } = await api.get<IUserResponse>('/profile');
 
         setUser(data);
         setTech(data.techs);
@@ -116,13 +134,12 @@ const UserProvider = ({ children }: IUserProviderProps) => {
 
   const signIn = async (data: IUserLogin) => {
     await api
-      .post('/sessions', data)
+      .post<ISessionsResponse>('/sessions', data)
       .then((response) => {
         const { token, user: userResponse } = response.data;
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
         localStorage.setItem('@hub:token', token);
-        localStorage.setItem('@hub:user', userResponse);
 
         setUser(userResponse);
         setTech(userResponse.techs);
