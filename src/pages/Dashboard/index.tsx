@@ -27,8 +27,8 @@ const Dashboard = () => {
       </div>
 
       <div className='info--user'>
-        <p className='user--dashboard'>Olá, {user[0].name}</p>
-        <p className='course--dashboard'>{user[0].course_module}</p>
+        <p className='user--dashboard'>Olá, {user.name}</p>
+        <p className='course--dashboard'>{user.course_module}</p>
       </div>
 
       <ContainerTech />

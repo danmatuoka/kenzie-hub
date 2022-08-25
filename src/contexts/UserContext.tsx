@@ -50,8 +50,8 @@ export interface IUserLogin {
 }
 
 interface IUserContext {
-  user: IUser[] | null;
-  setUser: Dispatch<SetStateAction<IUser[] | null>>;
+  user: IUser | null;
+  setUser: Dispatch<SetStateAction<IUser | null>>;
   tech: ITech[];
   setTech: Dispatch<SetStateAction<ITech[]>>;
   loading: boolean;
@@ -67,7 +67,7 @@ interface IUserContext {
 export const UserContext = createContext<IUserContext>({} as IUserContext);
 
 const UserProvider = ({ children }: IUserProviderProps) => {
-  const [user, setUser] = useState<IUser[] | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
   const [tech, setTech] = useState<ITech[]>([]);
   const [loading, setLoading] = useState(true);
   const [isOpenModal, setIsOpenModal] = useState(false);
